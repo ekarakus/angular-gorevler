@@ -1,0 +1,59 @@
+<h1>{{ model.isim }} 'in Listesi</h1>
+<div class="input-group mb-3">
+  <input
+    type="text"
+    #gorev
+    class="form-control"
+    (keyup.enter)="ekle(gorev); gorev.value = ''"
+  />
+  <button
+    class="btn-outline-primary btn"
+    (click)="ekle(gorev); gorev.value = ''"
+  >
+    Ekle
+  </button>
+</div>
+<div class="alert-warning alert" *ngIf="model.liste.length == 0; else liste">
+  liste boş
+</div>
+<ng-template #liste>
+  <div class="form-check">
+    <input
+      type="checkbox"
+      [(ngModel)]="hepsiniGoster"
+      id="showAll"
+      class="form-check-input"
+    />
+    <label for="showAll">Hepsini göster</label>
+  </div>
+<div class="col-12">
+  <div class="alert alert-warning p-2" *ngIf="tamamlananGorevSayisi()==0">henüz görev tamamlanmış görev yok</div>
+  <div class="alert alert-success p-2" *ngIf="tamamlananGorevSayisi()>0 && 0!=elemanlar().length ">{{tamamlananGorevSayisi()}} adet görev tamamlandı</div>
+
+</div>
+  <div class="row bg-secondary p-2 text-white fw-bold">
+    <div class="col-2">#id</div>
+    <div class="col-6">Görev</div>
+    <div class="col-4">Bitti mi?</div>
+  </div>
+  <div class="alert-warning alert mt-2" *ngIf="elemanlar().length == 0">
+    Bütün görevler tamamlanmış
+  </div>
+  <div class="row p-2" *ngFor="let item of elemanlar(); let i = index">
+    <div class="col-2">{{ i + 1 }}</div>
+    <div class="col-6">{{ item.gorev }}</div>
+    <div class="col-3">
+      <div [ngSwitch]="item.tamamlandi">
+        <div *ngSwitchCase="true">Tamalandı</div>
+        <div *ngSwitchDefault>Bekliyor</div>
+      </div>
+    </div>
+    <div class="col-1">
+      <input
+        type="checkbox"
+        [(ngModel)]="item.tamamlandi"
+        (click)="tamamla(item)"
+      />
+    </div>
+  </div>
+</ng-template>
