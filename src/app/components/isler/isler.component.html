@@ -2,11 +2,13 @@
 <div class="input-group mb-3">
   <input
     type="text"
+    [(ngModel)]="metinDegeri"
     #gorev
     class="form-control"
     (keyup.enter)="ekle(gorev); gorev.value = ''"
   />
   <button
+  [class.disabled]="metinDegeri.length==0"
     class="btn-outline-primary btn"
     (click)="ekle(gorev); gorev.value = ''"
   >
@@ -39,12 +41,14 @@
   <div class="alert-warning alert mt-2" *ngIf="elemanlar().length == 0">
     Bütün görevler tamamlanmış
   </div>
-  <div class="row p-2" *ngFor="let item of elemanlar(); let i = index">
+  <div class="row p-2" *ngFor="let item of elemanlar(); let i = index"
+  [class.bg-warning]="!item.tamamlandi"
+  [class.bg-info]="item.tamamlandi">
     <div class="col-2">{{ i + 1 }}</div>
     <div class="col-6">{{ item.gorev }}</div>
     <div class="col-3">
       <div [ngSwitch]="item.tamamlandi">
-        <div *ngSwitchCase="true">Tamalandı</div>
+        <div *ngSwitchCase="true">Tamamlandı</div>
         <div *ngSwitchDefault>Bekliyor</div>
       </div>
     </div>

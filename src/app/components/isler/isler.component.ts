@@ -11,6 +11,7 @@ import { Model } from '../model';
 export class IslerComponent implements OnInit {
   public model: Model;
   public hepsiniGoster: boolean = true;
+  public metinDegeri:String=""
   constructor() {
     this.model = new Model('Ergün');
   }
