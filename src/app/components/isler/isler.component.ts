@@ -11,7 +11,7 @@ import { Model } from '../model';
 export class IslerComponent implements OnInit {
   public model: Model;
   public hepsiniGoster: boolean = true;
-  public metinDegeri:String=""
+  public metinDegeri: String = '';
   constructor() {
     this.model = new Model('Ergün');
   }
@@ -20,10 +20,11 @@ export class IslerComponent implements OnInit {
   ekle(gorev: any) {
     if (gorev.value != '') {
       if (this.model.liste.filter((x) => x.gorev == gorev.value).length === 0) {
-
         this.model.liste.push({
-          id:liste.length>0?
-            (liste.sort((a, b) => Number(b.id) - Number(a.id))[0].id) + 1:1,
+          id:
+            liste.length > 0
+              ? liste.sort((a, b) => Number(b.id) - Number(a.id))[0].id + 1
+              : 1,
           gorev: gorev.value,
           tamamlandi: false,
         });
@@ -42,12 +43,13 @@ export class IslerComponent implements OnInit {
     else return this.model.liste.filter((x) => !x.tamamlandi);
   }
   tamamla(eleman: Is) {
-     let xx=this.model.liste.find(x => x.id == eleman.id);
-    if(xx)
-     xx.tamamlandi=!eleman.tamamlandi
-
+    let xx = this.model.liste.find((x) => x.id == eleman.id);
+    if (xx) xx.tamamlandi = !eleman.tamamlandi;
   }
-  tamamlananGorevSayisi(){
-    return this.model.liste.filter(x=>x.tamamlandi).length
+  tamamlananGorevSayisi() {
+    return this.model.liste.filter((x) => x.tamamlandi).length;
+  }
+  sil(gorev: Is) {
+    this.model.liste=this.model.liste.filter((x) => x.id != gorev.id)
   }
 }
