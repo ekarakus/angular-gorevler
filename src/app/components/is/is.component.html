@@ -1,1 +1,18 @@
-<h1>{{ eleman.gorev }}</h1>
+<div class="col-2">{{ eleman.id }}</div>
+    <div class="col-6">{{ eleman.gorev }}</div>
+    <div class="col-2">
+      <div [ngSwitch]="eleman.tamamlandi">
+        <div *ngSwitchCase="true">Tamamlandı</div>
+        <div *ngSwitchDefault>Bekliyor</div>
+      </div>
+    </div>
+    <div class="col-1">
+      <input
+        type="checkbox"
+        [(ngModel)]="eleman.tamamlandi"
+        (click)="tamamla(eleman)"
+      />
+    </div>
+    <div class="col-1">
+      <a (click)="sil(eleman)" href="#">x</a>
+    </div>

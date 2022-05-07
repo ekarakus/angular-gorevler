@@ -12,11 +12,13 @@ export class IslerComponent implements OnInit {
   public model: Model;
   public hepsiniGoster: boolean = true;
   public metinDegeri: String = '';
+
   constructor() {
     this.model = new Model('Ergün');
   }
 
   ngOnInit(): void {}
+
   ekle(gorev: any) {
     if (gorev.value != '') {
       if (this.model.liste.filter((x) => x.gorev == gorev.value).length === 0) {
@@ -38,6 +40,7 @@ export class IslerComponent implements OnInit {
       gorev.placeholder = 'görev yazınız';
     }
   }
+
   elemanlar(): Is[] {
     if (this.hepsiniGoster) return this.model.liste;
     else return this.model.liste.filter((x) => !x.tamamlandi);
@@ -46,10 +49,12 @@ export class IslerComponent implements OnInit {
     let xx = this.model.liste.find((x) => x.id == eleman.id);
     if (xx) xx.tamamlandi = !eleman.tamamlandi;
   }
+
   tamamlananGorevSayisi() {
     return this.model.liste.filter((x) => x.tamamlandi).length;
   }
+
   sil(gorev: Is) {
-    this.model.liste=this.model.liste.filter((x) => x.id != gorev.id)
+    this.model.liste = this.model.liste.filter((x) => x.id != gorev.id);
   }
 }
